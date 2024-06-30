@@ -9,18 +9,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
+import { FormUserComponent } from '../form-user/form-user.component';
 
 
 @Component({
   selector: 'app-table-usuarios',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatCardModule],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule
+  ],
   templateUrl: './table-usuarios.component.html',
   styleUrl: './table-usuarios.component.scss'
 })
 export class TableUsuariosComponent implements AfterViewInit, OnDestroy {
+
+  private dialogService = inject(MatDialog);
 
   private $destroy = new Subject<void>;
 
@@ -67,6 +81,13 @@ export class TableUsuariosComponent implements AfterViewInit, OnDestroy {
         this.dataSource.data = data.content;
       });
   }
+
+  public openCreateUsuarioDialog() {
+    this.dialogService.open(FormUserComponent, {
+      width: '500px',
+    })
+  }
+
 
   ngOnDestroy(): void {
     this.$destroy.next();

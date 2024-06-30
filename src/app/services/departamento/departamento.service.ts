@@ -31,5 +31,5 @@ export class DepartamentoService {
   public listDepartamentos(nome: string): Observable<{content: Departamento[]}> {
     return this.http.get<{content: Departamento[]}>(`${this.API_URL}`, { params: { nome } })
   }
-  
+
 }
